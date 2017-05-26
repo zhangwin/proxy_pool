@@ -12,7 +12,7 @@
 """
 __author__ = 'JHao'
 
-import sys
+import sys,time
 
 sys.path.append('../')
 
@@ -33,7 +33,8 @@ class ProxyValidSchedule(ProxyManager):
         """
         while True:
             self.db.changeTable(self.useful_proxy_queue)
-            for each_proxy in self.db.getAll():
+            allproxy=self.db.getAll()
+            for each_proxy in allproxy:
                 if isinstance(each_proxy, bytes):
                     each_proxy = each_proxy.decode('utf-8')
 
@@ -42,6 +43,8 @@ class ProxyValidSchedule(ProxyManager):
                 else:
                     self.db.delete(each_proxy)
                     self.log.info('validProxy_b: {} validation fail'.format(each_proxy))
+                if len(allproxy)<120:
+                    time.sleep(120/len(allproxy))
         self.log.info('validProxy_a running normal')
 
     def main(self):
