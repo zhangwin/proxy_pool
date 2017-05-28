@@ -82,13 +82,16 @@ def validUsefulProxy(proxy):
     :param proxy:
     :return:
     """
-    proxies = {"https": "https://{proxy}".format(proxy=proxy)}
+    proxies = {"http": "http://{proxy}".format(proxy=proxy),"https": "https://{proxy}".format(proxy=proxy)}
     try:
         # 超过20秒的代理就不要了
-        r = requests.get('https://www.baidu.com/', proxies=proxies, timeout=20, verify=False)
-        if r.status_code == 200:
+        r = requests.get('http://im.qq.com/', proxies=proxies, timeout=10, verify=False)
+        if r.status_code == 200 and r.headers["Server"].find("nginx")>-1:
             logger.debug('%s is ok' % proxy)
             return True
     except Exception as e:
         logger.info(e)
         return False
+
+if __name__ == '__main__':
+    print validUsefulProxy("111.8.22.208:8080")

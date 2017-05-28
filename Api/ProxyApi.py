@@ -34,7 +34,7 @@ api_list = {
 
 @app.route('/')
 def index():
-    return jsonify(api_list)
+    return 'this is test'
 
 
 @app.route('/get/')
@@ -71,7 +71,7 @@ def get_status():
 
 
 def run():
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='127.0.0.1', port=5000,threaded=True)
 
 if __name__ == '__main__':
     run()

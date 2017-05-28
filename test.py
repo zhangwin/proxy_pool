@@ -12,4 +12,5 @@
 """
 __author__ = 'JHao'
 
-from Schedule import ProxyRefreshSchedule
+from Util.utilFunction import validUsefulProxy
+print(validUsefulProxy("211.20.66.252:80"))

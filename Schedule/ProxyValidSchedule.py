@@ -34,6 +34,7 @@ class ProxyValidSchedule(ProxyManager):
         while True:
             self.db.changeTable(self.useful_proxy_queue)
             allproxy=self.db.getAll()
+            lenall=len(allproxy)
             for each_proxy in allproxy:
                 if isinstance(each_proxy, bytes):
                     each_proxy = each_proxy.decode('utf-8')
@@ -44,7 +45,7 @@ class ProxyValidSchedule(ProxyManager):
                     self.db.delete(each_proxy)
                     self.log.info('validProxy_b: {} validation fail'.format(each_proxy))
                 if len(allproxy)<120:
-                    time.sleep(120/len(allproxy))
+                    time.sleep(120/lenall)
         self.log.info('validProxy_a running normal')
 
     def main(self):
